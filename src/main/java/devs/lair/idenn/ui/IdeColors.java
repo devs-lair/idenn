@@ -11,6 +11,10 @@ public class IdeColors {
     public static final Color MENU_BACKGROUND = defaults.getColor("MenuBar.background");
     public static final Color MENU_BORDER_COLOR = defaults.getColor("MenuBar.borderColor");
 
+    public static final Color DEFAULT_BORDER_COLOR = defaults.getColor("ToolBar.light");
+    public static final Color DEFAULT_BACKGROUND = defaults.getColor("Panel.background");
+    public static final Color TREE_BACKGROUND = defaults.getColor("Tree.background");
+
     private IdeColors() {
         throw new IllegalStateException();
     }

@@ -16,11 +16,24 @@
 
     <dependencies>
         <!-- Event bus -->
-
         <dependency>
             <groupId>org.greenrobot</groupId>
             <artifactId>eventbus-java</artifactId>
             <version>3.3.1</version>
+        </dependency>
+
+        <!-- UI -->
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-swing</artifactId>
+            <version>12.4.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-coreui-pack</artifactId>
+            <version>12.4.0</version>
         </dependency>
 
         <dependency>
@@ -31,13 +44,19 @@
         </dependency>
 
         <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>3.7.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>26.1.0</version>
             <scope>compile</scope>
         </dependency>
 
-        <!-- ====Testing==== -->
+        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

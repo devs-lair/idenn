@@ -1,10 +1,17 @@
 package devs.lair.idenn;
 
 import devs.lair.idenn.bus.AppEvent;
+import devs.lair.idenn.ui.IdeBorders;
+import devs.lair.idenn.ui.IdeColors;
+import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
+import devs.lair.idenn.ui.componets.IdeScrollPane;
 import devs.lair.idenn.ui.componets.IdeSpliter;
+import devs.lair.idenn.ui.componets.ProjectToolbar;
+import devs.lair.idenn.ui.componets.ProjectTree;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
+import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +20,15 @@ import java.awt.event.ActionEvent;
 public class IdeMainFrame extends JFrame {
     private static IdeMainFrame INSTANCE;
 
-    private JPanel mainPanel;
-    private StateLine stateLine;
-    private JSplitPane topBottom;
-    private JSplitPane leftRight;
+    private final JPanel mainPanel = new JPanel(new BorderLayout());
+    private final JSplitPane topBottom = new IdeSpliter(JSplitPane.VERTICAL_SPLIT);
+    private final JSplitPane leftRight = new IdeSpliter(JSplitPane.HORIZONTAL_SPLIT);
+
+    private final JPanel projectPanel = new JPanel(new BorderLayout());
+    private final JPanel contentPanel = new JPanel(new BorderLayout());
     private JPanel bottomPanel;
-    private JPanel leftPanel;
-    private JPanel rightPanel;
+
+    private StateLine stateLine;
 
     public static @NotNull IdeMainFrame getInstance() {
         return INSTANCE;
@@ -59,12 +68,8 @@ public class IdeMainFrame extends JFrame {
     }
 
     private void createMainPanel() {
-        mainPanel = new JPanel(new BorderLayout());
-
-//        mainPanel.add(createNorthPanel(), BorderLayout.NORTH);
-//        mainPanel.add(createWestPanel(),  BorderLayout.WEST );
-//        mainPanel.add(createEastPanel(), BorderLayout.EAST);
-
+//      //mainPanel.add(createEastPanel(), BorderLayout.EAST);
+        mainPanel.add(createWestToolbar(), BorderLayout.WEST);
         mainPanel.add(createCenterPanel(), BorderLayout.CENTER);
         mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
         add(mainPanel);
@@ -76,29 +81,35 @@ public class IdeMainFrame extends JFrame {
     }
 
     private JComponent createCenterPanel() {
-        leftRight = new IdeSpliter(JSplitPane.HORIZONTAL_SPLIT);
-        leftRight.setLeftComponent(leftPanel = new JPanel());
-        leftRight.setRightComponent(rightPanel = new JPanel());
-        leftRight.setResizeWeight(0.2);
+        leftRight.setLeftComponent(createProjectPanel());
+        leftRight.setRightComponent(contentPanel);
+        leftRight.setResizeWeight(0.1);
 
-        topBottom = new IdeSpliter(JSplitPane.VERTICAL_SPLIT);
         topBottom.setLeftComponent(leftRight);
-        topBottom.setRightComponent(bottomPanel = new JPanel());
-        topBottom.setResizeWeight(0.7);
-
         return topBottom;
     }
 
-    private JComponent createEastPanel() {
-        return null;
+    private Component createProjectPanel() {
+        projectPanel.add(new ProjectToolbar(), BorderLayout.NORTH);
+        projectPanel.add(new IdeScrollPane(new ProjectTree()), BorderLayout.CENTER);
+        return projectPanel;
     }
 
-    private JComponent createWestPanel() {
-        return null;
-    }
+    private JComponent createWestToolbar() {
+        JToolBar westToolbar = new JToolBar(JToolBar.VERTICAL);
+        westToolbar.setFloatable(false);
 
-    private JComponent createNorthPanel() {
-        return null;
+        westToolbar.add(new AbstractAction("Project", IdeIcons.getIcon(CoreUiFree.FOLDER, 16)) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        JPanel toolbarWrapper = new JPanel();
+        toolbarWrapper.add(westToolbar);
+        toolbarWrapper.setBorder(IdeBorders.rightBorder(IdeColors.DEFAULT_BORDER_COLOR));
+        return toolbarWrapper;
     }
 
     private void createMenu() {

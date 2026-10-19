@@ -16,7 +16,15 @@ public class IdeBorders {
         return BorderFactory.createMatteBorder(1, 0, 0,0, color);
     }
 
-    public static Border rightBorder(Color color) {
+    public static Border rightBorder(@NotNull Color color) {
         return BorderFactory.createMatteBorder(0, 0, 0,1, color);
+    }
+
+    public static Border bottomBorder(@NotNull Color color) {
+        return BorderFactory.createMatteBorder(0, 0, 1, 0, color);
+    }
+
+    public static Border emptyBorder(int size) {
+        return BorderFactory.createEmptyBorder(size, size, size, size);
     }
 }
