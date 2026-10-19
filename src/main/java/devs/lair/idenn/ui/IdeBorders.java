@@ -15,4 +15,8 @@ public class IdeBorders {
     public static Border topBorder(@NotNull Color color) {
         return BorderFactory.createMatteBorder(1, 0, 0,0, color);
     }
+
+    public static Border rightBorder(Color color) {
+        return BorderFactory.createMatteBorder(0, 0, 0,1, color);
+    }
 }
