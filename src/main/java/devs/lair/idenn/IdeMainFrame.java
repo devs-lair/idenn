@@ -5,10 +5,7 @@ import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeColors;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
-import devs.lair.idenn.ui.componets.IdeScrollPane;
-import devs.lair.idenn.ui.componets.IdeSpliter;
-import devs.lair.idenn.ui.componets.ProjectToolbar;
-import devs.lair.idenn.ui.componets.ProjectTree;
+import devs.lair.idenn.ui.componets.*;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.kordamp.ikonli.coreui.CoreUiFree;
@@ -63,7 +60,8 @@ public class IdeMainFrame extends JFrame {
     }
 
     private void createUI() {
-        createMenu();
+        setJMenuBar(new MainMenu());
+
         createMainPanel();
     }
 
@@ -110,27 +108,6 @@ public class IdeMainFrame extends JFrame {
         toolbarWrapper.add(westToolbar);
         toolbarWrapper.setBorder(IdeBorders.rightBorder(IdeColors.DEFAULT_BORDER_COLOR));
         return toolbarWrapper;
-    }
-
-    private void createMenu() {
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu file = new JMenu(IdeStrings.Menus.FILE);
-        menuBar.add(file);
-
-        file.add(new JMenuItem(new AbstractAction(IdeStrings.Actions.OPEN_PROJECT) {
-            @Override
-            public void actionPerformed(ActionEvent e) {}
-        }));
-
-        file.add(new JMenuItem(new AbstractAction(IdeStrings.Actions.CLOSE) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-            }
-        }));
-
-        setJMenuBar(menuBar);
     }
 
     public StateLine getStateLine() {
