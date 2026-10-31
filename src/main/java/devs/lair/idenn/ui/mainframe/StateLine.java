@@ -1,4 +1,4 @@
-package devs.lair.idenn;
+package devs.lair.idenn.ui.mainframe;
 
 import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeColors;

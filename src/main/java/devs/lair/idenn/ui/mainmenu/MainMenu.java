@@ -1,10 +1,6 @@
-package devs.lair.idenn.ui.componets;
+package devs.lair.idenn.ui.mainmenu;
 
 import devs.lair.idenn.ui.IdeStrings;
-import devs.lair.idenn.ui.actions.CloseProjectAction;
-import devs.lair.idenn.ui.actions.NewProjectAction;
-import devs.lair.idenn.ui.actions.OpenProjectAction;
-import devs.lair.idenn.ui.actions.SaveProjectAction;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;

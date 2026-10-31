@@ -2,6 +2,7 @@ package devs.lair.idenn;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import devs.lair.idenn.bus.EventHandler;
+import devs.lair.idenn.ui.mainframe.IdeMainFrame;
 import org.greenrobot.eventbus.EventBus;
 
 import javax.swing.*;

@@ -26,6 +26,7 @@ public class IdeStrings {
         String CLOSE = bundle.getString("action.Close");
         String CLOSE_TOOLTIP = bundle.getString("action.Close.tooltip");
         String CLOSE_MNEMONIC = bundle.getString("action.Close.mnemonic");
+        String REMOVE_ITEM = bundle.getString("action.RemoveItem");
     }
     public interface Menus {
         String FILE = bundle.getString("menu.File");

@@ -1,20 +1,31 @@
-package devs.lair.idenn;
+package devs.lair.idenn.ui.mainframe;
 
+import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.bus.AppEvent;
 import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeColors;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
-import devs.lair.idenn.ui.componets.*;
+import devs.lair.idenn.ui.componets.IdeScrollPane;
+import devs.lair.idenn.ui.componets.IdeSpliter;
+import devs.lair.idenn.ui.keys.IdeUIKeys;
+import devs.lair.idenn.ui.keys.UiKey;
+import devs.lair.idenn.ui.mainmenu.MainMenu;
+import devs.lair.idenn.ui.project.ProjectToolbar;
+import devs.lair.idenn.ui.project.ProjectTree;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
 
 public class IdeMainFrame extends JFrame {
+    private static final HashMap<UiKey<?>, JComponent> keyedComponents = new HashMap<>();
     private static IdeMainFrame INSTANCE;
 
     private final JPanel mainPanel = new JPanel(new BorderLayout());
@@ -48,7 +59,26 @@ public class IdeMainFrame extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         createUI();
+        createListeners();
         showFrame();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends JComponent> T getByKey(@NotNull UiKey<T> key) {
+        return (T) keyedComponents.get(key);
+    }
+
+    public static <T extends JComponent> void putByKey(@NotNull UiKey<T> key, @Nullable T component) {
+        keyedComponents.put(key, component);
+    }
+
+    private void createListeners() {
+        long eventMask = AWTEvent.MOUSE_MOTION_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK + AWTEvent.ACTION_EVENT_MASK;
+        Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
+            if ((e.getID() == MouseEvent.MOUSE_RELEASED) || e.getID() == ActionEvent.ACTION_PERFORMED) {
+                IdeActions.updateActions(e);
+            }
+        }, eventMask);
     }
 
     private void showFrame() {
@@ -89,7 +119,11 @@ public class IdeMainFrame extends JFrame {
 
     private Component createProjectPanel() {
         projectPanel.add(new ProjectToolbar(), BorderLayout.NORTH);
-        projectPanel.add(new IdeScrollPane(new ProjectTree()), BorderLayout.CENTER);
+
+        ProjectTree projectTree = new ProjectTree();
+        putByKey(IdeUIKeys.PROJECT_TREE, new ProjectTree());
+        projectPanel.add(new IdeScrollPane(projectTree), BorderLayout.CENTER);
+
         return projectPanel;
     }
 

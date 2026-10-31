@@ -1,8 +1,8 @@
-package devs.lair.idenn.ui.actions;
+package devs.lair.idenn.ui.mainmenu;
 
-import devs.lair.idenn.IdeMainFrame;
+import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeStrings;
-import devs.lair.idenn.ui.abstarcts.IdeAction;
+import devs.lair.idenn.ui.mainframe.IdeMainFrame;
 
 import java.awt.event.ActionEvent;
 
