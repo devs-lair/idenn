@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class StateLine extends JPanel {
     private final JLabel stateLabel = new JLabel(IdeStrings.Labels.READY);
@@ -25,7 +27,7 @@ public class StateLine extends JPanel {
         if (stateLine.isEmpty()) {
             clear();
         } else {
-            stateLabel.setText(stateLine);
+            stateLabel.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS")) + " - " + stateLine);
         }
     }
 

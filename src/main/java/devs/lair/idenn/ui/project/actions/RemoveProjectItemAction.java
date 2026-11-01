@@ -20,7 +20,7 @@ public class RemoveProjectItemAction extends IdeAction {
 
     public RemoveProjectItemAction() {
         super(IdeStrings.Actions.REMOVE_PROJECT_ITEM,
-                IdeStrings.Actions.REMOVE_PROJECT_ITEM,
+                IdeStrings.Actions.REMOVE_PROJECT_ITEM_TOOLTIP,
                 IdeIcons.getIcon(CoreUiFree.MINUS),
                 KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
 
@@ -29,12 +29,12 @@ public class RemoveProjectItemAction extends IdeAction {
 
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
-        super.actionPerformed(e);
-
         ProjectTree projectTree = IdeMainFrame.getByKey(IdeUIKeys.PROJECT_TREE);
         if (projectTree == null || !projectTree.hasFocus()) {
             return;
         }
+
+        postEvent(e);
     }
 
     @Override

@@ -25,8 +25,14 @@ public class IdeStrings {
         String CLOSE = bundle.getString("action.Close");
         String CLOSE_TOOLTIP = bundle.getString("action.Close.tooltip");
         String CLOSE_MNEMONIC = bundle.getString("action.Close.mnemonic");
-        String REMOVE_PROJECT_ITEM = bundle.getString("action.RemoveProjectItem");
-        String ADD_PROJECT_ITEM = bundle.getString("action.AddProjectItem");
+        String REMOVE_PROJECT_ITEM = bundle.getString("action.RemoveItem");
+        String REMOVE_PROJECT_ITEM_TOOLTIP = bundle.getString("action.RemoveProjectItem.tooltip");
+        String ADD_PROJECT_ITEM = bundle.getString("action.AddItem");
+        String ADD_PROJECT_ITEM_TOOLTIP = bundle.getString("action.AddProjectItem.tooltip");
+        String CLONE_PROJECT_ITEM = bundle.getString("action.CloneItem");
+        String CLONE_PROJECT_ITEM_TOOLTIP = bundle.getString("action.CloneProjectItem.tooltip");
+        String COLLAPSE_PROJECT_TREE = bundle.getString("action.CollapseAll");
+        String EXPAND_PROJECT_TREE = bundle.getString("action.ExpandAll");
     }
 
     public interface Menus {

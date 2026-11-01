@@ -5,11 +5,13 @@ import devs.lair.idenn.ui.IdeSizes;
 import devs.lair.idenn.ui.componets.IdeTreeCellRenderer;
 import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.project.nodes.*;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import javax.swing.tree.*;
+import java.util.Enumeration;
 
 public class ProjectTree extends JTree {
 
@@ -24,12 +26,6 @@ public class ProjectTree extends JTree {
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
         expandAll();
-    }
-
-    private void expandAll() {
-        for (int i = 0; i < getRowCount(); i++) {
-            expandRow(i);
-        }
     }
 
     private TreeNode createTree() {
@@ -57,5 +53,30 @@ public class ProjectTree extends JTree {
         }
 
         return (DefaultMutableTreeNode) selectionPath.getLastPathComponent();
+    }
+
+    public void expandAll() {
+        for (int i = 0; i < getRowCount(); i++) {
+            expandRow(i);
+        }
+    }
+
+    public void collapseAll() {
+        TreeNode root = (TreeNode) getModel().getRoot();
+        collapseAll(new TreePath(root));
+    }
+
+    private void collapseAll(@NotNull TreePath parent) {
+        TreeNode node = (TreeNode) parent.getLastPathComponent();
+
+        for (Enumeration<?> e = node.children(); e.hasMoreElements(); ) {
+            TreeNode child = (TreeNode) e.nextElement();
+            TreePath path = parent.pathByAddingChild(child);
+            collapseAll(path);
+        }
+
+        if (!(node instanceof ProjectTreeRoot)) {
+            collapsePath(parent);
+        }
     }
 }

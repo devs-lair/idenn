@@ -2,10 +2,7 @@ package devs.lair.idenn.ui.mainframe;
 
 import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.bus.AppEvent;
-import devs.lair.idenn.ui.IdeBorders;
-import devs.lair.idenn.ui.IdeColors;
-import devs.lair.idenn.ui.IdeIcons;
-import devs.lair.idenn.ui.IdeStrings;
+import devs.lair.idenn.ui.*;
 import devs.lair.idenn.ui.componets.IdeScrollPane;
 import devs.lair.idenn.ui.componets.IdeSpliter;
 import devs.lair.idenn.ui.keys.IdeUIKeys;
@@ -56,7 +53,9 @@ public class IdeMainFrame extends JFrame {
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(new Dimension(IdeSizes.SCREEN_WIDTH - 400,
+                IdeSizes.SCREEN_HEIGHT - 200));
 
         createUI();
         createListeners();

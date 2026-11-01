@@ -25,8 +25,7 @@ public class EventHandler {
         String stateString = event.getStateString();
 
         if (logString != null && !logString.isEmpty()) {
-            String formatted = "Event was arrived: %s".formatted(event.getLogString());
-            LOG.info(formatted);
+            LOG.info(event.getLogString());
         }
 
         if (stateString != null && !stateString.isEmpty()) {

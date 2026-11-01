@@ -18,7 +18,7 @@ public class AddProjectItemAction extends IdeAction {
 
     public AddProjectItemAction() {
         super(IdeStrings.Actions.ADD_PROJECT_ITEM,
-                IdeStrings.Actions.ADD_PROJECT_ITEM,
+                IdeStrings.Actions.ADD_PROJECT_ITEM_TOOLTIP,
                 IdeIcons.getIcon(CoreUiFree.PLUS),
                 KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0));
 
@@ -27,12 +27,12 @@ public class AddProjectItemAction extends IdeAction {
 
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
-        super.actionPerformed(e);
-
         ProjectTree projectTree = IdeMainFrame.getByKey(IdeUIKeys.PROJECT_TREE);
         if (projectTree == null || !projectTree.hasFocus()) {
             return;
         }
+
+        postEvent(e);
     }
 
     @Override

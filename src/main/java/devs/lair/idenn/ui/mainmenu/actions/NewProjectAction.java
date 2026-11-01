@@ -3,6 +3,7 @@ package devs.lair.idenn.ui.mainmenu.actions;
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
+import org.jetbrains.annotations.NotNull;
 import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class NewProjectAction extends IdeAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(@NotNull ActionEvent e) {
         System.out.println("DA");
     }
 }

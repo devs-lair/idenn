@@ -3,6 +3,7 @@ package devs.lair.idenn.ui.mainmenu.actions;
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeStrings;
 import devs.lair.idenn.ui.mainframe.IdeMainFrame;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.event.ActionEvent;
 
@@ -14,7 +15,7 @@ public class CloseProjectAction extends IdeAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(@NotNull ActionEvent e) {
         IdeMainFrame.getInstance().dispose();
     }
 }

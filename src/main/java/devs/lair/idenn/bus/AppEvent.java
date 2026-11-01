@@ -4,8 +4,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AppEvent {
-    private final String name;
-    private final String description;
+    protected final String name;
+    protected final String description;
 
     public AppEvent(@NotNull String name,
                     @Nullable String description) {
