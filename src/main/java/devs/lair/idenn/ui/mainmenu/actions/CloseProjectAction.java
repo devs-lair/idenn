@@ -1,4 +1,4 @@
-package devs.lair.idenn.ui.mainmenu;
+package devs.lair.idenn.ui.mainmenu.actions;
 
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeStrings;

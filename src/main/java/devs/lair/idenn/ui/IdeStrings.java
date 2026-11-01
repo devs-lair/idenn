@@ -12,7 +12,6 @@ public class IdeStrings {
     }
 
     public interface Actions {
-
         String OPEN_PROJECT = bundle.getString("action.Open");
         String OPEN_TOOLTIP = bundle.getString("action.Open.tooltip");
         String OPEN_MNEMONIC = bundle.getString("action.Open.mnemonic");
@@ -26,8 +25,10 @@ public class IdeStrings {
         String CLOSE = bundle.getString("action.Close");
         String CLOSE_TOOLTIP = bundle.getString("action.Close.tooltip");
         String CLOSE_MNEMONIC = bundle.getString("action.Close.mnemonic");
-        String REMOVE_ITEM = bundle.getString("action.RemoveItem");
+        String REMOVE_PROJECT_ITEM = bundle.getString("action.RemoveProjectItem");
+        String ADD_PROJECT_ITEM = bundle.getString("action.AddProjectItem");
     }
+
     public interface Menus {
         String FILE = bundle.getString("menu.File");
         String FILE_MNEMONIC = bundle.getString("menu.File.mnemonic");
@@ -35,5 +36,11 @@ public class IdeStrings {
 
     public interface Labels {
         String READY = bundle.getString("labels.ready");
+    }
+
+    public interface Project {
+        String CATEGORY_PLANS = bundle.getString("project.category.plans");
+        String CATEGORY_ENGINES = bundle.getString("project.category.engines");
+        String CATEGORY_TRAINS = bundle.getString("project.category.trains");
     }
 }

@@ -121,7 +121,7 @@ public class IdeMainFrame extends JFrame {
         projectPanel.add(new ProjectToolbar(), BorderLayout.NORTH);
 
         ProjectTree projectTree = new ProjectTree();
-        putByKey(IdeUIKeys.PROJECT_TREE, new ProjectTree());
+        putByKey(IdeUIKeys.PROJECT_TREE, projectTree);
         projectPanel.add(new IdeScrollPane(projectTree), BorderLayout.CENTER);
 
         return projectPanel;

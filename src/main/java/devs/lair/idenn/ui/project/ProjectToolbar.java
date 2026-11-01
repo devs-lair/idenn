@@ -2,13 +2,12 @@ package devs.lair.idenn.ui.project;
 
 import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeColors;
-import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.componets.IdeToolBar;
 import devs.lair.idenn.ui.keys.IdeUiNames;
-import org.kordamp.ikonli.coreui.CoreUiFree;
+import devs.lair.idenn.ui.project.actions.AddProjectItemAction;
+import devs.lair.idenn.ui.project.actions.RemoveProjectItemAction;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 public class ProjectToolbar extends IdeToolBar {
 
@@ -18,12 +17,7 @@ public class ProjectToolbar extends IdeToolBar {
         setFloatable(false);
         setBorder(IdeBorders.bottomBorder(IdeColors.DEFAULT_BORDER_COLOR));
 
-        add(new AbstractAction("Add", IdeIcons.getIcon(CoreUiFree.PLUS)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
-
+        add(new AddProjectItemAction());
         add(new RemoveProjectItemAction());
     }
 }
