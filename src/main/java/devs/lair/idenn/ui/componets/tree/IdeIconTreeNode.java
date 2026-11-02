@@ -1,15 +1,15 @@
-package devs.lair.idenn.ui.project.nodes;
+package devs.lair.idenn.ui.componets.tree;
 
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class IconTreeNode extends DefaultMutableTreeNode implements HasIconNode {
+public class IdeIconTreeNode extends DefaultMutableTreeNode implements HasIconNode {
     private final Icon icon;
     private final String name;
 
-    public IconTreeNode(@NotNull String name, @NotNull Icon icon) {
+    public IdeIconTreeNode(@NotNull String name, @NotNull Icon icon) {
         super(name, true);
 
         this.name = name;

@@ -1,4 +1,4 @@
-package devs.lair.idenn.ui.project.nodes;
+package devs.lair.idenn.ui.componets.tree;
 
 import org.jetbrains.annotations.NotNull;
 

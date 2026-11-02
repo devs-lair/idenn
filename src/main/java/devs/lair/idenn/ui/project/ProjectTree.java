@@ -1,9 +1,14 @@
 package devs.lair.idenn.ui.project;
 
+import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeSizes;
-import devs.lair.idenn.ui.componets.IdeTreeCellRenderer;
+import devs.lair.idenn.ui.componets.tree.IdeIconTreeNode;
+import devs.lair.idenn.ui.componets.tree.IdeTreeCellRenderer;
 import devs.lair.idenn.ui.keys.IdeUiNames;
+import devs.lair.idenn.ui.project.actions.AddProjectItemAction;
+import devs.lair.idenn.ui.project.actions.CloneProjectItemAction;
+import devs.lair.idenn.ui.project.actions.RemoveProjectItemAction;
 import devs.lair.idenn.ui.project.nodes.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,6 +27,8 @@ public class ProjectTree extends JTree {
         setRootVisible(false);
         setBorder(BorderFactory
                 .createEmptyBorder(0, IdeSizes.SMALL_IDENT, 0, IdeSizes.MEDIUM_IDENT));
+        setComponentPopupMenu(createPopup());
+
         setCellRenderer(new IdeTreeCellRenderer());
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
@@ -31,9 +38,9 @@ public class ProjectTree extends JTree {
     private TreeNode createTree() {
         ProjectTreeRoot projectTreeRoot = new ProjectTreeRoot();
         NetworkPlanCategoryNode planCategoryNode = new NetworkPlanCategoryNode();
-        IconTreeNode p1 = new IconTreeNode("Perceptrone AND",
+        IdeIconTreeNode p1 = new IdeIconTreeNode("Perceptrone AND",
                 IdeIcons.getIcon(CoreUiFree.APPS_SETTINGS));
-        IconTreeNode p2 = new IconTreeNode("Perceptrone XOR",
+        IdeIconTreeNode p2 = new IdeIconTreeNode("Perceptrone XOR",
                 IdeIcons.getIcon(CoreUiFree.APPS_SETTINGS));
 
         planCategoryNode.add(p1);
@@ -41,9 +48,18 @@ public class ProjectTree extends JTree {
 
         projectTreeRoot.add(planCategoryNode);
         projectTreeRoot.add(new NetworkEngineCategoryNode());
+        projectTreeRoot.add(new NetworkDatasetsCategoryNode());
         projectTreeRoot.add(new NetworkTrainCategoryNode());
 
         return projectTreeRoot;
+    }
+
+    private JPopupMenu createPopup() {
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.add(IdeActions.getAction(AddProjectItemAction.class));
+        popupMenu.add(IdeActions.getAction(RemoveProjectItemAction.class));
+        popupMenu.add(IdeActions.getAction(CloneProjectItemAction.class));
+        return popupMenu;
     }
 
     public @Nullable DefaultMutableTreeNode getSelectedNode() {

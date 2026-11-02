@@ -1,8 +1,8 @@
-package devs.lair.idenn.ui.componets;
+package devs.lair.idenn.ui.componets.tree;
 
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeSizes;
-import devs.lair.idenn.ui.project.nodes.HasIconNode;
+import devs.lair.idenn.ui.componets.CompoundIcon;
 import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
