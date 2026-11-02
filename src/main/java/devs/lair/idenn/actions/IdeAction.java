@@ -2,6 +2,7 @@ package devs.lair.idenn.actions;
 
 import devs.lair.idenn.bus.ActionPerformedEvent;
 import devs.lair.idenn.ui.IdeIcons;
+import devs.lair.idenn.utils.KeyStrokeUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,12 +33,23 @@ abstract public class IdeAction extends AbstractAction {
         this.icon = icon;
 
         putValue(Action.SMALL_ICON, icon);
-        putValue(Action.SHORT_DESCRIPTION, tooltip);
+        putValue(Action.SHORT_DESCRIPTION, createHtmlTooltip(tooltip, keyStroke));
         putValue(Action.ACCELERATOR_KEY, keyStroke);
 
         if (mnemonic != null) {
             putValue(Action.MNEMONIC_KEY, KeyEvent.getExtendedKeyCodeForChar(mnemonic));
         }
+    }
+
+    private String createHtmlTooltip(@Nullable String tooltip, @Nullable KeyStroke keyStroke) {
+        if (keyStroke == null) {
+            return tooltip;
+        }
+
+        String keyStrokeText = KeyStrokeUtils.getKeyStrokeText(keyStroke);
+        String htmlKeyStroke = " <span color='GRAY'>(" + keyStrokeText + ")</span>";
+
+        return "<html>" + tooltip + htmlKeyStroke + "</html>";
     }
 
     public IdeAction(@NotNull String name,
@@ -65,16 +77,11 @@ abstract public class IdeAction extends AbstractAction {
     public void postEvent(@NotNull ActionEvent e) {
         //Java bug fix
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(e);
-
-        EventBus.getDefault()
-                .post(new ActionPerformedEvent(name, performedDescription));
+        EventBus.getDefault().post(new ActionPerformedEvent(name, performedDescription));
     }
 
     public void update(Object object) {
-    }
 
-    public void setMnemonic(int mnemonic) {
-        putValue(Action.MNEMONIC_KEY, mnemonic);
     }
 
     public @Nullable KeyStroke getKey() {
@@ -83,10 +90,6 @@ abstract public class IdeAction extends AbstractAction {
         } catch (ClassCastException e) {
             return null;
         }
-    }
-
-    public void setKey(@NotNull KeyStroke keyStroke) {
-        putValue(Action.ACCELERATOR_KEY, keyStroke);
     }
 
     @Override

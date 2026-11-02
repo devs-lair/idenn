@@ -1,6 +1,6 @@
 package devs.lair.idenn.bus;
 
-import devs.lair.idenn.ui.mainframe.IdeMainFrame;
+import devs.lair.idenn.IdeMainFrame;
 import devs.lair.idenn.ui.mainframe.StateLine;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

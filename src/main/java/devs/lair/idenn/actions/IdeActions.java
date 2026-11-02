@@ -1,5 +1,6 @@
 package devs.lair.idenn.actions;
 
+import devs.lair.idenn.ui.mainframe.actions.ProjectTreeToggleAction;
 import devs.lair.idenn.ui.project.actions.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ public class IdeActions {
         registerAction(new CloneProjectItemAction());
         registerAction(new ExpandProjectTreeAction());
         registerAction(new CollapseProjectTreeAction());
+        registerAction(new ProjectTreeToggleAction());
     }
 
     private IdeActions() {
@@ -34,7 +36,8 @@ public class IdeActions {
         actions.values().forEach(action -> action.update(event));
     }
 
-    public static IdeAction getAction(@NotNull Class<?> actionClass) {
-        return actions.get(actionClass.getCanonicalName());
+    @SuppressWarnings("unchecked")
+    public static <T extends IdeAction> T getAction(@NotNull Class<T> actionClass) {
+        return (T) actions.get(actionClass.getCanonicalName());
     }
 }

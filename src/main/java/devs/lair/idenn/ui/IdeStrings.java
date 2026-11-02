@@ -49,5 +49,6 @@ public class IdeStrings {
         String CATEGORY_ENGINES = bundle.getString("project.category.engines");
         String CATEGORY_DATASETS = bundle.getString("project.category.datasets");
         String CATEGORY_TRAINS = bundle.getString("project.category.trains");
+        String PROJECT_TREE = bundle.getString("project.labels.projectTree");
     }
 }

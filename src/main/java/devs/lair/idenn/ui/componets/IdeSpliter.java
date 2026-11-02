@@ -13,11 +13,26 @@ public class IdeSpliter extends JSplitPane {
     private static final int DIVIDER_DRAG_SIZE = 9;
     private static final int DIVIDER_DRAG_OFFSET = 4;
 
+    private int oldDividerLocation = -1;
+
     public IdeSpliter(int orientation) {
         super(orientation);
 
         setDividerSize(1);
         setContinuousLayout(true);
+    }
+
+    @Override
+    public void setTopComponent(Component comp) {
+        if (comp == null) {
+            oldDividerLocation = getDividerLocation();
+        }
+
+        if (comp != null && getTopComponent() == null) {
+            setDividerLocation(oldDividerLocation);
+        }
+
+        super.setTopComponent(comp);
     }
 
     @Override

@@ -1,15 +1,15 @@
-package devs.lair.idenn.ui.mainframe;
+package devs.lair.idenn;
 
 import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.bus.AppEvent;
 import devs.lair.idenn.ui.*;
-import devs.lair.idenn.ui.componets.IdeScrollPane;
 import devs.lair.idenn.ui.componets.IdeSpliter;
-import devs.lair.idenn.ui.keys.IdeUIKeys;
+import devs.lair.idenn.ui.componets.IdeToolBar;
 import devs.lair.idenn.ui.keys.UiKey;
+import devs.lair.idenn.ui.mainframe.StateLine;
+import devs.lair.idenn.ui.mainframe.actions.ProjectTreeToggleAction;
 import devs.lair.idenn.ui.mainmenu.MainMenu;
-import devs.lair.idenn.ui.project.ProjectToolbar;
-import devs.lair.idenn.ui.project.ProjectTree;
+import devs.lair.idenn.ui.project.ProjectComponent;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,6 @@ public class IdeMainFrame extends JFrame {
     private final JSplitPane topBottom = new IdeSpliter(JSplitPane.VERTICAL_SPLIT);
     private final JSplitPane leftRight = new IdeSpliter(JSplitPane.HORIZONTAL_SPLIT);
 
-    private final JPanel projectPanel = new JPanel(new BorderLayout());
     private final JPanel contentPanel = new JPanel(new BorderLayout());
     private JPanel bottomPanel;
 
@@ -71,6 +70,19 @@ public class IdeMainFrame extends JFrame {
         keyedComponents.put(key, component);
     }
 
+    public <T extends JComponent> void setLeftComponent(@NotNull UiKey<T> key) {
+        T byKey = getByKey(key);
+
+        JComponent topComponent = (JComponent) leftRight.getTopComponent();
+
+        if (topComponent == byKey) {
+            leftRight.setTopComponent(null);
+        } else {
+            leftRight.setTopComponent(byKey);
+            byKey.requestFocus();
+        }
+    }
+
     private void createListeners() {
         long eventMask = AWTEvent.MOUSE_MOTION_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK + AWTEvent.ACTION_EVENT_MASK;
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
@@ -108,7 +120,7 @@ public class IdeMainFrame extends JFrame {
     }
 
     private JComponent createCenterPanel() {
-        leftRight.setLeftComponent(createProjectPanel());
+        leftRight.setLeftComponent(new ProjectComponent());
         leftRight.setRightComponent(contentPanel);
         leftRight.setResizeWeight(0.1);
 
@@ -116,26 +128,22 @@ public class IdeMainFrame extends JFrame {
         return topBottom;
     }
 
-    private Component createProjectPanel() {
-        projectPanel.add(new ProjectToolbar(), BorderLayout.NORTH);
-
-        ProjectTree projectTree = new ProjectTree();
-        putByKey(IdeUIKeys.PROJECT_TREE, projectTree);
-        projectPanel.add(new IdeScrollPane(projectTree), BorderLayout.CENTER);
-
-        return projectPanel;
-    }
-
     private JComponent createWestToolbar() {
-        JToolBar westToolbar = new JToolBar(JToolBar.VERTICAL);
+        //DIRTY!!! after added new on, refactor
+
+        JToolBar westToolbar = new IdeToolBar(JToolBar.VERTICAL);
         westToolbar.setFloatable(false);
 
-        westToolbar.add(new AbstractAction("Project", IdeIcons.getIcon(CoreUiFree.FOLDER, 16)) {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        JToggleButton toggleButton = new JToggleButton(IdeIcons.getIcon(CoreUiFree.FOLDER, 16));
 
-            }
-        });
+        toggleButton.setBorder(IdeBorders.emptyBorder(5));
+        ProjectTreeToggleAction toggleAction = IdeActions.getAction(ProjectTreeToggleAction.class);
+        toggleAction.setOwner(toggleButton);
+        toggleButton.addActionListener(toggleAction);
+        toggleButton.setSelected(true);
+        toggleButton.setToolTipText(toggleAction.getTooltip());
+
+        westToolbar.add(toggleButton);
 
         JPanel toolbarWrapper = new JPanel();
         toolbarWrapper.add(westToolbar);

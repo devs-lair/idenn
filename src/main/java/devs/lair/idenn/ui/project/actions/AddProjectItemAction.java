@@ -1,10 +1,10 @@
 package devs.lair.idenn.ui.project.actions;
 
+import devs.lair.idenn.IdeMainFrame;
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
 import devs.lair.idenn.ui.keys.IdeUIKeys;
-import devs.lair.idenn.ui.mainframe.IdeMainFrame;
 import devs.lair.idenn.ui.project.ProjectTree;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
