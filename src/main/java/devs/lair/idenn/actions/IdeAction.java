@@ -38,8 +38,6 @@ abstract public class IdeAction extends AbstractAction {
         if (mnemonic != null) {
             putValue(Action.MNEMONIC_KEY, KeyEvent.getExtendedKeyCodeForChar(mnemonic));
         }
-
-        IdeActions.registerAction(this);
     }
 
     public IdeAction(@NotNull String name,

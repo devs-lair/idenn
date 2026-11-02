@@ -24,9 +24,9 @@ public class IdeActions {
 
     public static void registerAction(@NotNull IdeAction action) {
         if (actions.containsKey(action.getId())) {
-            throw new IllegalStateException("Duplicate id or duplicate register action");
+            throw new IllegalStateException("Duplicate id or duplicate register action, %s".formatted(action.getId()));
         }
-        actions.put(action.getName(), action);
+        actions.put(action.getId(), action);
     }
 
     //granularity
@@ -34,7 +34,7 @@ public class IdeActions {
         actions.values().forEach(action -> action.update(event));
     }
 
-    public static IdeAction getAction(@NotNull String actionId) {
-        return actions.get(actionId);
+    public static IdeAction getAction(@NotNull Class<?> actionClass) {
+        return actions.get(actionClass.getCanonicalName());
     }
 }
