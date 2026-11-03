@@ -63,6 +63,7 @@ public class IdeStrings {
     public interface Buttons {
         String CANCEL = bundle.getString("buttons.cancel");
         String ADD = bundle.getString("buttons.add");
+        String OK = bundle.getString("buttons.ok");
     }
 
     public interface Dialogs {

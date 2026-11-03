@@ -21,6 +21,6 @@ public class MainActionDialogButton extends JButton {
     }
 
     public MainActionDialogButton(@NotNull IdeDialog<?> dialog) {
-        this(IdeStrings.Buttons.ADD, dialog);
+        this(IdeStrings.Buttons.OK, dialog);
     }
 }

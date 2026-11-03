@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 
 abstract public class IdeLightAction extends AbstractAction {
@@ -19,7 +18,8 @@ abstract public class IdeLightAction extends AbstractAction {
 
     protected void postEvent(@NotNull ActionEvent e, @Nullable String performedDescription) {
         //Java bug fix
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(e);
+        //Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(e);
+
         EventBus.getDefault().post(new ActionPerformedEvent(name, performedDescription));
     }
 

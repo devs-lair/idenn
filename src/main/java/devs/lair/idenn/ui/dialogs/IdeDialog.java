@@ -15,7 +15,10 @@ import java.awt.event.KeyEvent;
 public abstract class IdeDialog<T> extends JDialog {
     private final JPanel bottomButtonsPanel;
     private final JPanel centerPanel;
+
     private JPanel titlePanel;
+    private JButton okButton;
+    private JButton cancelButton;
 
     private boolean canceled = false;
 
@@ -44,6 +47,9 @@ public abstract class IdeDialog<T> extends JDialog {
         bottomButtonsPanel.setBorder(BorderFactory.createEmptyBorder(IdeSizes.SMALL_IDENT, 0, 0, 0));
 
         createBottomButtons();
+    }
+
+    public void init() {
         createCenterPanel();
         pack();
     }
@@ -83,16 +89,16 @@ public abstract class IdeDialog<T> extends JDialog {
     abstract protected void doMainAction();
 
     protected void createBottomButtons() {
-        MainActionDialogButton okAction = new MainActionDialogButton(this);
-        CancelDialogButton cancelDialogButton = new CancelDialogButton(this);
+        okButton = new MainActionDialogButton(this);
+        cancelButton = new CancelDialogButton(this);
 
-        bottomButtonsPanel.add(okAction);
+        bottomButtonsPanel.add(okButton);
         bottomButtonsPanel.add(new CancelDialogButton(this));
 
         getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESC");
-        getRootPane().getActionMap().put("ESC", (IdeLightAction) cancelDialogButton.getActionListeners()[0]);
+        getRootPane().getActionMap().put("ESC", (IdeLightAction) cancelButton.getActionListeners()[0]);
 
-        okAction.requestFocus();
+        okButton.requestFocus();
     }
 
     public void doCancel() {
@@ -102,5 +108,25 @@ public abstract class IdeDialog<T> extends JDialog {
 
     public boolean isCanceled() {
         return canceled;
+    }
+
+    public JButton getOkButton() {
+        return okButton;
+    }
+
+    public void setOkButtonText(@NotNull String buttonText) {
+        if (okButton != null) {
+            okButton.setText(buttonText);
+        }
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    public void setCancelButtonText(@NotNull String buttonText) {
+        if (cancelButton != null) {
+            cancelButton.setText(buttonText);
+        }
     }
 }

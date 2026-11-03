@@ -18,7 +18,6 @@ import org.kordamp.ikonli.coreui.CoreUiFree;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 public class IdeMainFrame extends JFrame {
@@ -57,7 +56,7 @@ public class IdeMainFrame extends JFrame {
                 IdeSizes.SCREEN_HEIGHT - 200));
 
         createUI();
-        createListeners();
+        //createListeners();
         showFrame();
     }
 
@@ -84,9 +83,10 @@ public class IdeMainFrame extends JFrame {
     }
 
     private void createListeners() {
-        long eventMask = AWTEvent.MOUSE_MOTION_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK + AWTEvent.ACTION_EVENT_MASK;
+        long eventMask = AWTEvent.ACTION_EVENT_MASK;
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
-            if ((e.getID() == MouseEvent.MOUSE_RELEASED) || e.getID() == ActionEvent.ACTION_PERFORMED) {
+            //(e.getID() == MouseEvent.MOUSE_RELEASED) ||
+            if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 IdeActions.updateActions(e);
             }
         }, eventMask);

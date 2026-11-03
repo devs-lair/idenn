@@ -1,6 +1,7 @@
 package devs.lair.idenn.bus;
 
 import devs.lair.idenn.IdeMainFrame;
+import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.ui.mainframe.StateLine;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -31,6 +32,10 @@ public class EventHandler {
         if (stateString != null && !stateString.isEmpty()) {
             StateLine stateLine = IdeMainFrame.getInstance().getStateLine();
             stateLine.write(stateString);
+        }
+
+        if (event instanceof ActionPerformedEvent) {
+            IdeActions.updateActions();
         }
     }
 }

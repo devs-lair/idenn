@@ -5,9 +5,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class ProjectCategoryNode extends DefaultMutableTreeNode implements TreeCategoryNode {
+public class ProjectTreeCategoryNode extends DefaultMutableTreeNode {
 
-    public ProjectCategoryNode(@NotNull ProjectCategory type) {
+    public ProjectTreeCategoryNode(@NotNull ProjectCategory type) {
         super(type, true);
     }
 

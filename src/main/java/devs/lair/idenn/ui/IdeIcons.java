@@ -31,9 +31,10 @@ public class IdeIcons {
         return fontIcon;
     }
 
-    public static Icon getIcon(@NotNull Ikon ikon, @NotNull Color color) {
+    public static Icon getIcon(@NotNull Ikon ikon, @NotNull Color color, int size) {
         FontIcon fontIcon = new FontIcon();
         fontIcon.setIkon(ikon);
+        fontIcon.setIconSize(size);
         fontIcon.setIconColor(color);
         return fontIcon;
     }

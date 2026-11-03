@@ -3,6 +3,7 @@ package devs.lair.idenn.actions;
 import devs.lair.idenn.ui.mainframe.actions.ProjectTreeToggleAction;
 import devs.lair.idenn.ui.project.actions.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.Map;
@@ -32,9 +33,14 @@ public class IdeActions {
     }
 
     //granularity
-    public static void updateActions(@NotNull AWTEvent event) {
+    public static void updateActions(@Nullable @Deprecated AWTEvent event) {
         actions.values().forEach(action -> action.update(event));
     }
+
+    public static void updateActions() {
+        updateActions(null);
+    }
+
 
     @SuppressWarnings("unchecked")
     public static <T extends IdeAction> T getAction(@NotNull Class<T> actionClass) {

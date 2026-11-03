@@ -6,13 +6,15 @@ import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
 import devs.lair.idenn.ui.keys.IdeUIKeys;
 import devs.lair.idenn.ui.project.ProjectTree;
-import devs.lair.idenn.ui.project.nodes.TreeCategoryNode;
+import devs.lair.idenn.ui.project.nodes.ProjectItemNode;
+import devs.lair.idenn.ui.project.nodes.ProjectTreeCategoryNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -34,7 +36,19 @@ public class RemoveProjectItemAction extends IdeAction {
             return;
         }
 
-        postEvent(e, "Something removed");
+        DefaultMutableTreeNode selectedNode = projectTree.getSelectedNode();
+
+        if (selectedNode instanceof ProjectItemNode projectItemNode) {
+            TreePath treePath = new TreePath(projectTree.getMyModel().getPathToRoot(projectItemNode));
+
+            int beforeDeleteRow = projectTree.getRowForPath(treePath);
+            projectTree.removeItem(projectItemNode);
+            projectTree.setSelectionRow(beforeDeleteRow - 1);
+
+            postEvent(e, "Project Item ('%s', %s) was removed"
+                    .formatted(projectItemNode.getName(), projectItemNode.getType()));
+        }
+
     }
 
     @Override
@@ -46,6 +60,6 @@ public class RemoveProjectItemAction extends IdeAction {
         }
 
         DefaultMutableTreeNode selectedNode = projectTree.getSelectedNode();
-        setEnabled(selectedNode != null && !(selectedNode instanceof TreeCategoryNode));
+        setEnabled(selectedNode != null && !(selectedNode instanceof ProjectTreeCategoryNode));
     }
 }
