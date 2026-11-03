@@ -26,7 +26,6 @@ public class ExpandProjectTreeAction extends IdeAction {
             projectTree.expandAll();
         }
 
-        performedDescription = "Project Tree was expanded";
-        postEvent(e);
+        postEvent(e, "Project Tree was expanded");
     }
 }

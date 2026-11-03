@@ -34,7 +34,7 @@ public class RemoveProjectItemAction extends IdeAction {
             return;
         }
 
-        postEvent(e);
+        postEvent(e, "Something removed");
     }
 
     @Override

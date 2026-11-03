@@ -1,25 +1,19 @@
 package devs.lair.idenn.actions;
 
-import devs.lair.idenn.bus.ActionPerformedEvent;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.utils.KeyStrokeUtils;
-import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-abstract public class IdeAction extends AbstractAction {
+abstract public class IdeAction extends IdeLightAction {
     protected final String id;
 
     protected String name;
     protected Icon icon;
     protected Icon disabledIcon;
-
-    protected String performedDescription;
 
     public IdeAction(@NotNull String name,
                      @Nullable String tooltip,
@@ -72,16 +66,6 @@ abstract public class IdeAction extends AbstractAction {
 
     public String getId() {
         return id;
-    }
-
-    public void postEvent(@NotNull ActionEvent e) {
-        //Java bug fix
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(e);
-        EventBus.getDefault().post(new ActionPerformedEvent(name, performedDescription));
-    }
-
-    public void update(Object object) {
-
     }
 
     public @Nullable KeyStroke getKey() {

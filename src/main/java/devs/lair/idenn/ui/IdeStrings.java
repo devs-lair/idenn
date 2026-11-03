@@ -51,4 +51,9 @@ public class IdeStrings {
         String CATEGORY_TRAINS = bundle.getString("project.category.trains");
         String PROJECT_TREE = bundle.getString("project.labels.projectTree");
     }
+
+    public interface Buttons {
+        String CANCEL = bundle.getString("buttons.cancel");
+        String ADD = bundle.getString("buttons.add");
+    }
 }

@@ -31,7 +31,7 @@ public class CloneProjectItemAction extends IdeAction {
             return;
         }
 
-        postEvent(e);
+        postEvent(e, "Something cloned");
     }
 
     @Override

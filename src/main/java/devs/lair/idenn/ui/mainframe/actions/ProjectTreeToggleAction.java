@@ -27,8 +27,7 @@ public class ProjectTreeToggleAction extends IdeAction {
 
         if (owner instanceof JToggleButton toggleButton) {
             toggleButton.setSelected(!toggleButton.isSelected());
-            performedDescription = toggleButton.isSelected() ? "Project Tree was showed" : "Project Tree was hidden";
-            postEvent(e);
+            postEvent(e, toggleButton.isSelected() ? "Project Tree was showed" : "Project Tree was hidden");
         }
     }
 

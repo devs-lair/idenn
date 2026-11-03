@@ -26,7 +26,6 @@ public class CollapseProjectTreeAction extends IdeAction {
             projectTree.collapseAll();
         }
 
-        performedDescription = "Project Tree was collapsed";
-        postEvent(e);
+        postEvent(e, "Project Tree was collapsed");
     }
 }
