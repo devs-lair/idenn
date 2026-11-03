@@ -56,4 +56,8 @@ public class IdeStrings {
         String CANCEL = bundle.getString("buttons.cancel");
         String ADD = bundle.getString("buttons.add");
     }
+
+    public interface Dialogs {
+        String ADD_PROJECT_ITEM_DIALOG = bundle.getString("dialogs.AddProjectItem.title");
+    }
 }
