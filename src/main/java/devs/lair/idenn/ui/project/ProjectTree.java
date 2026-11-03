@@ -1,21 +1,21 @@
 package devs.lair.idenn.ui.project;
 
 import devs.lair.idenn.actions.IdeActions;
-import devs.lair.idenn.ui.IdeIcons;
+import devs.lair.idenn.model.project.ProjectCategory;
 import devs.lair.idenn.ui.IdeSizes;
-import devs.lair.idenn.ui.componets.tree.IdeIconTreeNode;
 import devs.lair.idenn.ui.componets.tree.IdeTreeCellRenderer;
 import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.project.actions.AddProjectItemAction;
 import devs.lair.idenn.ui.project.actions.CloneProjectItemAction;
 import devs.lair.idenn.ui.project.actions.RemoveProjectItemAction;
-import devs.lair.idenn.ui.project.nodes.*;
+import devs.lair.idenn.ui.project.nodes.ProjectCategoryNode;
+import devs.lair.idenn.ui.project.nodes.ProjectTreeRoot;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import javax.swing.tree.*;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 public class ProjectTree extends JTree {
@@ -37,19 +37,8 @@ public class ProjectTree extends JTree {
 
     private TreeNode createTree() {
         ProjectTreeRoot projectTreeRoot = new ProjectTreeRoot();
-        NetworkPlanCategoryNode planCategoryNode = new NetworkPlanCategoryNode();
-        IdeIconTreeNode p1 = new IdeIconTreeNode("Perceptrone AND",
-                IdeIcons.getIcon(CoreUiFree.APPS_SETTINGS));
-        IdeIconTreeNode p2 = new IdeIconTreeNode("Perceptrone XOR",
-                IdeIcons.getIcon(CoreUiFree.APPS_SETTINGS));
-
-        planCategoryNode.add(p1);
-        planCategoryNode.add(p2);
-
-        projectTreeRoot.add(planCategoryNode);
-        projectTreeRoot.add(new NetworkEngineCategoryNode());
-        projectTreeRoot.add(new NetworkDatasetsCategoryNode());
-        projectTreeRoot.add(new NetworkTrainCategoryNode());
+        Arrays.stream(ProjectCategory.values()).forEach(
+                type -> projectTreeRoot.add(new ProjectCategoryNode(type)));
 
         return projectTreeRoot;
     }

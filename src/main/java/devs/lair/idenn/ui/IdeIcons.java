@@ -31,6 +31,13 @@ public class IdeIcons {
         return fontIcon;
     }
 
+    public static Icon getIcon(@NotNull Ikon ikon, @NotNull Color color) {
+        FontIcon fontIcon = new FontIcon();
+        fontIcon.setIkon(ikon);
+        fontIcon.setIconColor(color);
+        return fontIcon;
+    }
+
     public static @NotNull Icon createGreyIcon(@NotNull Icon icon) {
         Image iconImage = iconToImage(icon);
         return new ImageIcon(GrayFilter.createDisabledImage(iconImage));

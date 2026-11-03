@@ -45,10 +45,18 @@ public class IdeStrings {
     }
 
     public interface Project {
-        String CATEGORY_PLANS = bundle.getString("project.category.plans");
+        String CATEGORY_MODELS = bundle.getString("project.category.models");
         String CATEGORY_ENGINES = bundle.getString("project.category.engines");
+        String CATEGORY_BUILDS = bundle.getString("project.category.builds");
         String CATEGORY_DATASETS = bundle.getString("project.category.datasets");
         String CATEGORY_TRAINS = bundle.getString("project.category.trains");
+
+        String ITEM_MODEL = bundle.getString("project.item.model");
+        String ITEM_ENGINE = bundle.getString("project.item.engine");
+        String ITEM_BUILD = bundle.getString("project.item.build");
+        String ITEM_DATASET = bundle.getString("project.item.dataset");
+        String ITEM_TRAIN = bundle.getString("project.item.train");
+
         String PROJECT_TREE = bundle.getString("project.labels.projectTree");
     }
 
