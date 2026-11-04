@@ -1,6 +1,7 @@
 package devs.lair.idenn.ui.project.actions;
 
 import devs.lair.idenn.IdeMainFrame;
+import devs.lair.idenn.actions.GlobalAction;
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.model.project.ProjectCategory;
 import devs.lair.idenn.model.project.ProjectItem;
@@ -23,21 +24,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
-public class AddProjectItemAction extends IdeAction {
+public class AddProjectItemAction extends IdeAction implements GlobalAction {
 
     public AddProjectItemAction() {
         super(IdeStrings.Actions.ADD_PROJECT_ITEM,
                 IdeStrings.Actions.ADD_PROJECT_ITEM_TOOLTIP,
                 IdeIcons.getIcon(CoreUiFree.PLUS),
                 KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0));
-
-        setEnabled(false);
     }
 
     @Override
     public void actionPerformed(@NotNull ActionEvent e) {
-        ProjectTree projectTree = IdeMainFrame.getByKey(IdeUIKeys.PROJECT_TREE);
-        if (projectTree == null || !projectTree.hasFocus()) {
+        ProjectTree projectTree = IdeMainFrame.getByKeyOrThrow(IdeUIKeys.PROJECT_TREE);
+
+        if (!isGlobalCall(e) && !projectTree.hasFocus()) {
             return;
         }
 
@@ -55,7 +55,8 @@ public class AddProjectItemAction extends IdeAction {
         }
     }
 
-    private @Nullable ProjectItemType fetchPreferItemType(ProjectTree projectTree) {
+    //TODO move to project tree?
+    private @Nullable ProjectItemType fetchPreferItemType(@NotNull ProjectTree projectTree) {
         ProjectItemType preferType = null;
         DefaultMutableTreeNode selectedNode = projectTree.getSelectedNode();
         if (selectedNode instanceof ProjectTreeCategoryNode categoryNode) {
@@ -66,16 +67,5 @@ public class AddProjectItemAction extends IdeAction {
             preferType = itemNode.getType();
         }
         return preferType;
-    }
-
-    @Override
-    public void update(@Nullable Object object) {
-        ProjectTree projectTree = IdeMainFrame.getByKey(IdeUIKeys.PROJECT_TREE);
-
-        if (projectTree == null) {
-            return;
-        }
-
-        setEnabled(projectTree.getSelectedNode() != null);
     }
 }

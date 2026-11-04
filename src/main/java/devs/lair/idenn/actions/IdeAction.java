@@ -8,10 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
-abstract public class IdeAction extends IdeLightAction {
+abstract public class IdeAction extends IdeSimpleAction {
     protected final String id;
 
-    protected String name;
     protected Icon icon;
     protected Icon disabledIcon;
 
@@ -23,7 +22,6 @@ abstract public class IdeAction extends IdeLightAction {
         super(name);
 
         this.id = getClass().getCanonicalName();
-        this.name = name;
         this.icon = icon;
 
         putValue(Action.SMALL_ICON, icon);
@@ -33,17 +31,6 @@ abstract public class IdeAction extends IdeLightAction {
         if (mnemonic != null) {
             putValue(Action.MNEMONIC_KEY, KeyEvent.getExtendedKeyCodeForChar(mnemonic));
         }
-    }
-
-    private String createHtmlTooltip(@Nullable String tooltip, @Nullable KeyStroke keyStroke) {
-        if (keyStroke == null) {
-            return tooltip;
-        }
-
-        String keyStrokeText = KeyStrokeUtils.getKeyStrokeText(keyStroke);
-        String htmlKeyStroke = " <span color='GRAY'>(" + keyStrokeText + ")</span>";
-
-        return "<html>" + tooltip + htmlKeyStroke + "</html>";
     }
 
     public IdeAction(@NotNull String name,
@@ -64,7 +51,19 @@ abstract public class IdeAction extends IdeLightAction {
         this(name, tooltip, null, null, null);
     }
 
-    public String getId() {
+    private String createHtmlTooltip(@Nullable String tooltip, @Nullable KeyStroke keyStroke) {
+        if (keyStroke == null) {
+            return tooltip;
+        }
+
+        //TODO to HtmlLabelsUtil
+        String keyStrokeText = KeyStrokeUtils.getKeyStrokeText(keyStroke);
+        String htmlKeyStroke = " <span color='GRAY'>(" + keyStrokeText + ")</span>";
+
+        return "<html>" + tooltip + htmlKeyStroke + "</html>";
+    }
+
+    public @NotNull String getId() {
         return id;
     }
 
@@ -77,22 +76,20 @@ abstract public class IdeAction extends IdeLightAction {
     }
 
     @Override
-    public void setEnabled(boolean enabled) {
-        super.setEnabled(enabled);
-
-        if (icon == null) {
+    public void setEnabled(boolean newValue) {
+        if (this.enabled == newValue) {
             return;
         }
 
-        if (disabledIcon == null) {
-            disabledIcon = createDisabledIcon(icon);
+        if (icon != null) {
+            if (disabledIcon == null) {
+                disabledIcon = IdeIcons.createGreyIcon(icon);
+            }
+
+            putValue(Action.SMALL_ICON, newValue ? icon : disabledIcon);
         }
 
-        putValue(Action.SMALL_ICON, enabled ? icon : disabledIcon);
-    }
-
-    private @NotNull Icon createDisabledIcon(@NotNull Icon icon) {
-        return IdeIcons.createGreyIcon(icon);
+        super.setEnabled(newValue);
     }
 
     public @Nullable Icon getDisabledIcon() {
@@ -111,22 +108,8 @@ abstract public class IdeAction extends IdeLightAction {
         this.icon = icon;
     }
 
-    public void setName(@NotNull String name) {
-        this.name = name;
-        putValue(Action.NAME, name);
-    }
-
-    public String getName() {
-        return name;
-    }
-
     public boolean hasIcon() {
         return icon != null;
-    }
-
-    public @Nullable String getTooltip() {
-        String tooltip = (String) getValue(Action.SHORT_DESCRIPTION);
-        return tooltip == null ? name : tooltip;
     }
 }
 

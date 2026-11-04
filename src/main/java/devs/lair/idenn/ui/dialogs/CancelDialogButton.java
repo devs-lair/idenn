@@ -1,6 +1,6 @@
 package devs.lair.idenn.ui.dialogs;
 
-import devs.lair.idenn.actions.IdeLightAction;
+import devs.lair.idenn.actions.IdeSimpleAction;
 import devs.lair.idenn.ui.IdeStrings;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +11,7 @@ public class CancelDialogButton extends JButton {
 
     public CancelDialogButton(@NotNull String buttonText, @NotNull IdeDialog<?> dialog) {
         setText(buttonText);
-        addActionListener(new IdeLightAction("Cancel button") {
+        addActionListener(new IdeSimpleAction("Cancel button") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dialog.doCancel();

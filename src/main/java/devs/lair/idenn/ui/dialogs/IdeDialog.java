@@ -1,7 +1,7 @@
 package devs.lair.idenn.ui.dialogs;
 
 import devs.lair.idenn.IdeMainFrame;
-import devs.lair.idenn.actions.IdeLightAction;
+import devs.lair.idenn.actions.IdeSimpleAction;
 import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeSizes;
 import devs.lair.idenn.utils.HtmlLabelsUtil;
@@ -96,7 +96,7 @@ public abstract class IdeDialog<T> extends JDialog {
         bottomButtonsPanel.add(new CancelDialogButton(this));
 
         getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "ESC");
-        getRootPane().getActionMap().put("ESC", (IdeLightAction) cancelButton.getActionListeners()[0]);
+        getRootPane().getActionMap().put("ESC", (IdeSimpleAction) cancelButton.getActionListeners()[0]);
 
         okButton.requestFocus();
     }

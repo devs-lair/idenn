@@ -1,5 +1,6 @@
 package devs.lair.idenn.ui.mainmenu.actions;
 
+import devs.lair.idenn.actions.GlobalAction;
 import devs.lair.idenn.actions.IdeAction;
 import devs.lair.idenn.ui.IdeIcons;
 import devs.lair.idenn.ui.IdeStrings;
@@ -9,7 +10,7 @@ import org.kordamp.ikonli.coreui.CoreUiFree;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-public class OpenProjectAction extends IdeAction {
+public class OpenProjectAction extends IdeAction implements GlobalAction {
 
     public OpenProjectAction() {
         super(IdeStrings.Actions.OPEN_PROJECT,

@@ -1,19 +1,17 @@
 package devs.lair.idenn;
 
-import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.bus.AppEvent;
-import devs.lair.idenn.ui.*;
+import devs.lair.idenn.ui.IdeSizes;
+import devs.lair.idenn.ui.IdeStrings;
 import devs.lair.idenn.ui.componets.IdeSpliter;
-import devs.lair.idenn.ui.componets.IdeToolBar;
 import devs.lair.idenn.ui.keys.UiKey;
 import devs.lair.idenn.ui.mainframe.StateLine;
-import devs.lair.idenn.ui.mainframe.actions.ProjectTreeToggleAction;
+import devs.lair.idenn.ui.mainframe.toolbars.WestToolbar;
 import devs.lair.idenn.ui.mainmenu.MainMenu;
 import devs.lair.idenn.ui.project.ProjectComponent;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.kordamp.ikonli.coreui.CoreUiFree;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,17 +50,28 @@ public class IdeMainFrame extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setSize(new Dimension(IdeSizes.SCREEN_WIDTH - 400,
-                IdeSizes.SCREEN_HEIGHT - 200));
+        setSize(new Dimension(IdeSizes.SCREEN_WIDTH - 400, IdeSizes.SCREEN_HEIGHT - 200));
+        setJMenuBar(new MainMenu());
 
-        createUI();
         //createListeners();
+
+        createMainPanel();
         showFrame();
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends JComponent> T getByKey(@NotNull UiKey<T> key) {
+    public static <T extends JComponent> @Nullable T getByKey(@NotNull UiKey<T> key) {
         return (T) keyedComponents.get(key);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends JComponent> @NotNull T getByKeyOrThrow(@NotNull UiKey<T> key) {
+        JComponent jComponent = keyedComponents.get(key);
+        if (jComponent == null) {
+            throw new IllegalStateException("No component for key: %s".formatted(key.name()));
+        }
+
+        return (T) jComponent;
     }
 
     public static <T extends JComponent> void putByKey(@NotNull UiKey<T> key, @Nullable T component) {
@@ -78,6 +87,7 @@ public class IdeMainFrame extends JFrame {
             leftRight.setTopComponent(null);
         } else {
             leftRight.setTopComponent(byKey);
+            //TODO : Need work
             byKey.requestFocus();
         }
     }
@@ -87,7 +97,7 @@ public class IdeMainFrame extends JFrame {
         Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
             //(e.getID() == MouseEvent.MOUSE_RELEASED) ||
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
-                IdeActions.updateActions(e);
+                //IdeActions.updateActions(e);
             }
         }, eventMask);
     }
@@ -96,19 +106,12 @@ public class IdeMainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        EventBus.getDefault()
-                .post(new AppEvent("Application started"));
-    }
-
-    private void createUI() {
-        setJMenuBar(new MainMenu());
-
-        createMainPanel();
+        EventBus.getDefault().post(new AppEvent("Application started"));
     }
 
     private void createMainPanel() {
 //      //mainPanel.add(createEastPanel(), BorderLayout.EAST);
-        mainPanel.add(createWestToolbar(), BorderLayout.WEST);
+        mainPanel.add(new WestToolbar(), BorderLayout.WEST);
         mainPanel.add(createCenterPanel(), BorderLayout.CENTER);
         mainPanel.add(createSouthPanel(), BorderLayout.SOUTH);
         add(mainPanel);
@@ -128,29 +131,6 @@ public class IdeMainFrame extends JFrame {
         return topBottom;
     }
 
-    private JComponent createWestToolbar() {
-        //DIRTY!!! after added new on, refactor
-
-        JToolBar westToolbar = new IdeToolBar(JToolBar.VERTICAL);
-        westToolbar.setFloatable(false);
-
-        JToggleButton toggleButton = new JToggleButton(IdeIcons.getIcon(CoreUiFree.FOLDER, 16));
-
-        toggleButton.setBorder(IdeBorders.emptyBorder(5));
-        ProjectTreeToggleAction toggleAction = IdeActions.getAction(ProjectTreeToggleAction.class);
-        toggleAction.setOwner(toggleButton);
-        toggleButton.addActionListener(toggleAction);
-        toggleButton.setSelected(true);
-        toggleButton.setToolTipText(toggleAction.getTooltip());
-
-        westToolbar.add(toggleButton);
-
-        JPanel toolbarWrapper = new JPanel();
-        toolbarWrapper.add(westToolbar);
-        toolbarWrapper.setBorder(IdeBorders.rightBorder(IdeColors.DEFAULT_BORDER_COLOR));
-        return toolbarWrapper;
-    }
-
     public StateLine getStateLine() {
         return stateLine;
     }
@@ -158,7 +138,6 @@ public class IdeMainFrame extends JFrame {
     @Override
     public void dispose() {
         super.dispose();
-        EventBus.getDefault()
-                .post(new AppEvent("Application closed"));
+        EventBus.getDefault().post(new AppEvent("Application closed"));
     }
 }

@@ -3,15 +3,18 @@ package devs.lair.idenn.ui.project;
 import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.ui.IdeBorders;
 import devs.lair.idenn.ui.IdeColors;
-import devs.lair.idenn.ui.componets.IdeToolBar;
+import devs.lair.idenn.ui.componets.toolbar.IdeComponentToolBar;
 import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.project.actions.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class ProjectToolbar extends IdeToolBar {
+public class ProjectToolbar extends IdeComponentToolBar {
 
-    public ProjectToolbar() {
+    public ProjectToolbar(@NotNull JComponent ownerComponent) {
+        super(ownerComponent);
+
         setName(IdeUiNames.PROJECT_TOOLBAR);
         setOrientation(JToolBar.HORIZONTAL);
         setFloatable(false);

@@ -17,9 +17,9 @@ public class ProjectComponent extends JPanel {
         setName(IdeUiNames.PROJECT_COMPONENT);
 
         this.projectTree = new ProjectTree();
-        this.projectToolbar = new ProjectToolbar();
+        this.projectToolbar = new ProjectToolbar(projectTree);
 
-        add(new ProjectToolbar(), BorderLayout.NORTH);
+        add(projectToolbar, BorderLayout.NORTH);
         add(new IdeScrollPane(projectTree), BorderLayout.CENTER);
 
         IdeMainFrame.putByKey(IdeUIKeys.PROJECT_TREE, projectTree);

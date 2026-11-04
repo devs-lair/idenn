@@ -1,22 +1,20 @@
-package devs.lair.idenn.ui.componets;
+package devs.lair.idenn.ui.componets.toolbar;
 
 import devs.lair.idenn.actions.IdeAction;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class IdeToolBar extends JToolBar {
+abstract public class IdeToolbar extends JToolBar {
 
-    public IdeToolBar(int orientation) {
+    public IdeToolbar(int orientation) {
         super(orientation);
     }
 
-    public IdeToolBar() {
-    }
-
     @Override
-    public Component add(Component comp) {
+    public Component add(@NotNull Component comp) {
         Component add = super.add(comp);
 
         if (add instanceof AbstractButton button
@@ -30,11 +28,5 @@ public class IdeToolBar extends JToolBar {
         return add;
     }
 
-    private void registerIdeActionKeyStroke(IdeAction ideAction) {
-        KeyStroke keyStroke = ideAction.getKey();
-        if (keyStroke != null) {
-            getActionMap().put(ideAction.getId(), ideAction);
-            getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, ideAction.getId());
-        }
-    }
+    protected abstract void registerIdeActionKeyStroke(@NotNull IdeAction ideAction);
 }
