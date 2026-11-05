@@ -4,12 +4,14 @@ import devs.lair.idenn.actions.IdeActions;
 import devs.lair.idenn.model.project.ProjectCategory;
 import devs.lair.idenn.model.project.ProjectItem;
 import devs.lair.idenn.ui.IdeSizes;
+import devs.lair.idenn.ui.componets.IdePopupMenu;
 import devs.lair.idenn.ui.componets.tree.IdeTreeCellRenderer;
 import devs.lair.idenn.ui.keys.IdeUIKeys;
 import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.project.actions.AddProjectItemAction;
 import devs.lair.idenn.ui.project.actions.CloneProjectItemAction;
 import devs.lair.idenn.ui.project.actions.RemoveProjectItemAction;
+import devs.lair.idenn.ui.project.actions.RenameAction;
 import devs.lair.idenn.ui.project.nodes.ProjectItemNode;
 import devs.lair.idenn.ui.project.nodes.ProjectTreeCategoryNode;
 import devs.lair.idenn.ui.project.nodes.ProjectTreeRoot;
@@ -54,10 +56,16 @@ public class ProjectTree extends JTree {
     }
 
     private JPopupMenu createPopup() {
-        JPopupMenu popupMenu = new JPopupMenu();
-        popupMenu.add(IdeActions.getAction(AddProjectItemAction.class));
-        popupMenu.add(IdeActions.getAction(RemoveProjectItemAction.class));
-        popupMenu.add(IdeActions.getAction(CloneProjectItemAction.class));
+        IdePopupMenu popupMenu = new IdePopupMenu(this);
+
+        //KeyStroke register by toolbar
+        popupMenu.add(IdeActions.getAction(AddProjectItemAction.class), false);
+        popupMenu.add(IdeActions.getAction(RemoveProjectItemAction.class), false);
+        popupMenu.add(IdeActions.getAction(CloneProjectItemAction.class), false);
+
+        //Only popup items
+        popupMenu.add(IdeActions.getAction(RenameAction.class));
+
         return popupMenu;
     }
 
@@ -118,5 +126,9 @@ public class ProjectTree extends JTree {
 
     public void removeItem(@NotNull ProjectItemNode projectItemNode) {
         getMyModel().removeNodeFromParent(projectItemNode);
+    }
+
+    public void updateNode(@NotNull ProjectItemNode projectItemNode) {
+        getMyModel().nodeChanged(projectItemNode);
     }
 }

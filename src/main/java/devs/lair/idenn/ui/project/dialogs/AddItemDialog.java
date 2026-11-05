@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 public class AddItemDialog extends IdeDialog<ProjectItem> {
     private final ProjectItemType preferType;
@@ -91,10 +92,19 @@ public class AddItemDialog extends IdeDialog<ProjectItem> {
     }
 
     @Override
+    protected boolean doValidate() {
+        return !nameTextField.getText().isBlank();
+    }
+
+    @Override
     public void doMainAction() {
+        if (!doValidate()) {
+            return;
+        }
+
         result = ProjectItemService.getInstance()
-                .createProjectItem(nameTextField.getText(), (ProjectItemType) typeCombox.getSelectedItem());
-        setVisible(false);
+                .createProjectItem(nameTextField.getText(),
+                        (ProjectItemType) Objects.requireNonNull(typeCombox.getSelectedItem()));
         dispose();
     }
 }

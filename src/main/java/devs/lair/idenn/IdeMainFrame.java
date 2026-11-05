@@ -16,9 +16,9 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.HashMap;
 
+//TODO : Decomposition at final
 public class IdeMainFrame extends JFrame {
     private static final HashMap<UiKey<?>, JComponent> keyedComponents = new HashMap<>();
     private static IdeMainFrame INSTANCE;
@@ -83,25 +83,17 @@ public class IdeMainFrame extends JFrame {
     public <T extends JComponent> void setLeftComponent(@NotNull UiKey<T> key) {
         T byKey = getByKey(key);
 
-        JComponent topComponent = (JComponent) leftRight.getTopComponent();
+        if (byKey == null) {
+            return;
+        }
 
+        JComponent topComponent = (JComponent) leftRight.getTopComponent();
         if (topComponent == byKey) {
             leftRight.setTopComponent(null);
         } else {
             leftRight.setTopComponent(byKey);
-            //TODO : Need work
             byKey.requestFocus();
         }
-    }
-
-    private void createListeners() {
-        long eventMask = AWTEvent.ACTION_EVENT_MASK;
-        Toolkit.getDefaultToolkit().addAWTEventListener(e -> {
-            //(e.getID() == MouseEvent.MOUSE_RELEASED) ||
-            if (e.getID() == ActionEvent.ACTION_PERFORMED) {
-                //IdeActions.updateActions(e);
-            }
-        }, eventMask);
     }
 
     private void showFrame() {

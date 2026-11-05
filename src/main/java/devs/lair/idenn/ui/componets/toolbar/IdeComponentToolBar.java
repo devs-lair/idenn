@@ -1,6 +1,7 @@
 package devs.lair.idenn.ui.componets.toolbar;
 
 import devs.lair.idenn.actions.IdeAction;
+import devs.lair.idenn.utils.ActionUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,10 +21,6 @@ public class IdeComponentToolBar extends IdeToolbar {
 
     @Override
     protected void registerIdeActionKeyStroke(@NotNull IdeAction ideAction) {
-        KeyStroke keyStroke = ideAction.getKey();
-        if (keyStroke != null) {
-            ownerComponent.getActionMap().put(ideAction.getId(), ideAction);
-            ownerComponent.getInputMap(JComponent.WHEN_FOCUSED).put(keyStroke, ideAction.getId());
-        }
+        ActionUtils.registerIdeActionKeyStroke(ideAction, ownerComponent);
     }
 }

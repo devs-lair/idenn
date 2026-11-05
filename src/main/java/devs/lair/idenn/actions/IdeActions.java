@@ -20,6 +20,7 @@ public class IdeActions {
         registerAction(new ExpandProjectTreeAction());
         registerAction(new CollapseProjectTreeAction());
         registerAction(new ProjectTreeToggleAction());
+        registerAction(new RenameAction());
     }
 
     private IdeActions() {

@@ -33,6 +33,8 @@ public class IdeStrings {
         String CLONE_PROJECT_ITEM_TOOLTIP = bundle.getString("action.CloneProjectItem.tooltip");
         String COLLAPSE_PROJECT_TREE = bundle.getString("action.CollapseAll");
         String EXPAND_PROJECT_TREE = bundle.getString("action.ExpandAll");
+        String RENAME = bundle.getString("action.Rename");
+        String RENAME_TOOLTIP = bundle.getString("action.Rename.tooltip");
     }
 
     public interface Menus {
@@ -68,5 +70,6 @@ public class IdeStrings {
 
     public interface Dialogs {
         String ADD_PROJECT_ITEM_DIALOG = bundle.getString("dialogs.AddProjectItem.title");
+        String RENAME = bundle.getString("dialogs.rename.title");
     }
 }

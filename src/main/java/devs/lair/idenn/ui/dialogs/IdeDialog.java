@@ -88,6 +88,9 @@ public abstract class IdeDialog<T> extends JDialog {
 
     abstract protected void doMainAction();
 
+    //TODO : List of Validate Error
+    abstract protected boolean doValidate();
+
     protected void createBottomButtons() {
         okButton = new MainActionDialogButton(this);
         cancelButton = new CancelDialogButton(this);
