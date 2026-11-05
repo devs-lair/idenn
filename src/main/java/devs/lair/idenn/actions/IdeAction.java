@@ -1,12 +1,15 @@
 package devs.lair.idenn.actions;
 
 import devs.lair.idenn.ui.IdeIcons;
+import devs.lair.idenn.utils.HtmlLabelsUtil;
 import devs.lair.idenn.utils.KeyStrokeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+
 
 abstract public class IdeAction extends IdeSimpleAction {
     protected final String id;
@@ -25,12 +28,14 @@ abstract public class IdeAction extends IdeSimpleAction {
         this.icon = icon;
 
         putValue(Action.SMALL_ICON, icon);
-        putValue(Action.SHORT_DESCRIPTION, createHtmlTooltip(tooltip, keyStroke));
         putValue(Action.ACCELERATOR_KEY, keyStroke);
+        putValue(Action.SHORT_DESCRIPTION, tooltip != null && keyStroke != null
+                ? createHtmlTooltip(tooltip, keyStroke)
+                : tooltip);
 
-        if (mnemonic != null) {
-            putValue(Action.MNEMONIC_KEY, KeyEvent.getExtendedKeyCodeForChar(mnemonic));
-        }
+        putValue(Action.MNEMONIC_KEY, mnemonic == null
+                ? null
+                : KeyEvent.getExtendedKeyCodeForChar(mnemonic));
     }
 
     public IdeAction(@NotNull String name,
@@ -51,16 +56,9 @@ abstract public class IdeAction extends IdeSimpleAction {
         this(name, tooltip, null, null, null);
     }
 
-    private String createHtmlTooltip(@Nullable String tooltip, @Nullable KeyStroke keyStroke) {
-        if (keyStroke == null) {
-            return tooltip;
-        }
-
-        //TODO to HtmlLabelsUtil
-        String keyStrokeText = KeyStrokeUtils.getKeyStrokeText(keyStroke);
-        String htmlKeyStroke = " <span color='GRAY'>(" + keyStrokeText + ")</span>";
-
-        return "<html>" + tooltip + htmlKeyStroke + "</html>";
+    //TODO : move dataskink
+    public void update(@Nullable Object object) {
+        //no op by default
     }
 
     public @NotNull String getId() {
@@ -68,11 +66,7 @@ abstract public class IdeAction extends IdeSimpleAction {
     }
 
     public @Nullable KeyStroke getKey() {
-        try {
-            return (KeyStroke) getValue(Action.ACCELERATOR_KEY);
-        } catch (ClassCastException e) {
-            return null;
-        }
+        return (KeyStroke) getValue(Action.ACCELERATOR_KEY);
     }
 
     @Override
@@ -96,7 +90,7 @@ abstract public class IdeAction extends IdeSimpleAction {
         return disabledIcon;
     }
 
-    public void setDisabledIcon(Icon disabledIcon) {
+    public void setDisabledIcon(@Nullable Icon disabledIcon) {
         this.disabledIcon = disabledIcon;
     }
 
@@ -104,12 +98,17 @@ abstract public class IdeAction extends IdeSimpleAction {
         return icon;
     }
 
-    public void setIcon(Icon icon) {
+    public void setIcon(@Nullable Icon icon) {
         this.icon = icon;
     }
 
     public boolean hasIcon() {
         return icon != null;
+    }
+
+    private String createHtmlTooltip(@NotNull String tooltip, @NotNull KeyStroke keyStroke) {
+        String keyStrokeText = "(" + KeyStrokeUtils.getKeyStrokeText(keyStroke) + ")";
+        return HtmlLabelsUtil.html(tooltip + HtmlLabelsUtil.colorSpan(keyStrokeText, Color.GRAY));
     }
 }
 

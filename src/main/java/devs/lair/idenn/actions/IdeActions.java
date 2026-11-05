@@ -1,5 +1,6 @@
 package devs.lair.idenn.actions;
 
+import devs.lair.idenn.ui.keys.UiKey;
 import devs.lair.idenn.ui.mainframe.actions.ProjectTreeToggleAction;
 import devs.lair.idenn.ui.project.actions.*;
 import org.jetbrains.annotations.NotNull;
@@ -33,13 +34,13 @@ public class IdeActions {
         actions.put(action.getId(), action);
     }
 
-    //granularity ???
-//    public static void updateActions(@Nullable @Deprecated AWTEvent event) {
-//        actions.values().forEach(action -> action.update(event));
-//    }
-
-    public static void updateActions() {
-        actions.values().forEach(action -> action.update(null));
+    //TODO : add datasink second parameter and pass to update()
+    public static void updateActions(@NotNull UiKey<?> componentKey) {
+        actions.values().stream()
+                .filter(action ->
+                        action instanceof UpdatableAction updatableAction &&
+                                updatableAction.getOwnerComponentKey() == componentKey)
+                .forEach(action -> action.update(null));
     }
 
     @SuppressWarnings("unchecked")

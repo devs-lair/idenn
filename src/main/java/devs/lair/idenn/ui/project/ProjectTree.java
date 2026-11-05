@@ -5,6 +5,7 @@ import devs.lair.idenn.model.project.ProjectCategory;
 import devs.lair.idenn.model.project.ProjectItem;
 import devs.lair.idenn.ui.IdeSizes;
 import devs.lair.idenn.ui.componets.tree.IdeTreeCellRenderer;
+import devs.lair.idenn.ui.keys.IdeUIKeys;
 import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.project.actions.AddProjectItemAction;
 import devs.lair.idenn.ui.project.actions.CloneProjectItemAction;
@@ -35,7 +36,8 @@ public class ProjectTree extends JTree {
         setCellRenderer(new IdeTreeCellRenderer());
         getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
-        addTreeSelectionListener(e -> IdeActions.updateActions());
+        addTreeSelectionListener(e ->
+                IdeActions.updateActions(IdeUIKeys.PROJECT_TREE));
         expandAll();
     }
 

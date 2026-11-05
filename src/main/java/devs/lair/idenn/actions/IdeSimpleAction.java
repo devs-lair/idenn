@@ -25,9 +25,5 @@ abstract public class IdeSimpleAction extends AbstractAction {
     protected void postEvent(@NotNull ActionEvent e, @Nullable String performedDescription) {
         EventBus.getDefault().post(new ActionPerformedEvent(this, e, performedDescription));
     }
-
-    public void update(Object object) {
-        //no op by default
-    }
 }
 

@@ -4,6 +4,7 @@ import devs.lair.idenn.bus.AppEvent;
 import devs.lair.idenn.ui.IdeSizes;
 import devs.lair.idenn.ui.IdeStrings;
 import devs.lair.idenn.ui.componets.IdeSpliter;
+import devs.lair.idenn.ui.keys.IdeUiNames;
 import devs.lair.idenn.ui.keys.UiKey;
 import devs.lair.idenn.ui.mainframe.StateLine;
 import devs.lair.idenn.ui.mainframe.toolbars.WestToolbar;
@@ -48,6 +49,7 @@ public class IdeMainFrame extends JFrame {
             INSTANCE = this;
         }
 
+        setName(IdeUiNames.MAIN_FRAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(new Dimension(IdeSizes.SCREEN_WIDTH - 400, IdeSizes.SCREEN_HEIGHT - 200));

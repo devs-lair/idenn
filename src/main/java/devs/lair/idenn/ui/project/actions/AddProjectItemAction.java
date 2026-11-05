@@ -37,10 +37,6 @@ public class AddProjectItemAction extends IdeAction implements GlobalAction {
     public void actionPerformed(@NotNull ActionEvent e) {
         ProjectTree projectTree = IdeMainFrame.getByKeyOrThrow(IdeUIKeys.PROJECT_TREE);
 
-        if (!isGlobalCall(e) && !projectTree.hasFocus()) {
-            return;
-        }
-
         ProjectItemType preferType = fetchPreferItemType(projectTree);
         AddItemDialog addItemDialog = new AddItemDialog(preferType);
         addItemDialog.setVisible(true);

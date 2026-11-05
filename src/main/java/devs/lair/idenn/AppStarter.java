@@ -22,6 +22,7 @@ public class AppStarter {
         SwingUtilities.invokeLater(() -> {
             FlatIntelliJLaf.setup();
             //FlatDarkFlatIJTheme.setup();
+            //FlatDarculaLaf.setup();
             IdeMainFrame.init();
         });
     }
