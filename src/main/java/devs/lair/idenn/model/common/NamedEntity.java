@@ -4,6 +4,5 @@ import org.jetbrains.annotations.NotNull;
 
 public interface NamedEntity {
     @NotNull String getName();
-
     void setName(@NotNull String name);
 }

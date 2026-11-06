@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.awt.event.ActionEvent;
 
-//Marker
 public interface GlobalAction {
     default boolean isGlobalCall(@NotNull ActionEvent e) {
         return e.getSource() instanceof IdeMainFrame;

@@ -35,6 +35,7 @@ public class EventHandler {
             stateLine.write(stateString);
         }
 
+        //TODO : need for global?
         if (event instanceof ActionPerformedEvent) {
             IdeActions.updateActions(IdeUIKeys.MAIN_FRAME);
         }
