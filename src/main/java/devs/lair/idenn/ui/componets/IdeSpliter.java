@@ -1,6 +1,7 @@
 package devs.lair.idenn.ui.componets;
 
 import devs.lair.idenn.ui.IdeColors;
+import devs.lair.idenn.ui.IdeSizes;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,8 +11,8 @@ import java.awt.*;
 
 public class IdeSpliter extends JSplitPane {
 
-    private static final int DIVIDER_DRAG_SIZE = 9;
-    private static final int DIVIDER_DRAG_OFFSET = 4;
+    private static final int DIVIDER_DRAG_SIZE = IdeSizes.scale(9);
+    private static final int DIVIDER_DRAG_OFFSET = IdeSizes.scale(4);
 
     private int oldDividerLocation = -1;
 

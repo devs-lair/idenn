@@ -1,7 +1,9 @@
 package devs.lair.idenn;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.util.UIScale;
 import devs.lair.idenn.bus.EventHandler;
+import devs.lair.idenn.ui.IdeSizes;
 import org.greenrobot.eventbus.EventBus;
 
 import javax.swing.*;
@@ -21,6 +23,7 @@ public class AppStarter {
 
         SwingUtilities.invokeLater(() -> {
             FlatIntelliJLaf.setup();
+            UIScale.setZoomFactor(IdeSizes.SCALE);
             //FlatDarkFlatIJTheme.setup();
             //FlatDarculaLaf.setup();
             IdeMainFrame.init();

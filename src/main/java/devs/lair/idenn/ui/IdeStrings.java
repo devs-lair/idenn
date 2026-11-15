@@ -47,17 +47,17 @@ public class IdeStrings {
     }
 
     public interface Project {
-        String CATEGORY_MODELS = bundle.getString("project.category.models");
-        String CATEGORY_ENGINES = bundle.getString("project.category.engines");
-        String CATEGORY_BUILDS = bundle.getString("project.category.builds");
-        String CATEGORY_DATASETS = bundle.getString("project.category.datasets");
-        String CATEGORY_TRAINS = bundle.getString("project.category.trains");
+        String CATEGORY_MODELS_LABEL = bundle.getString("project.category.models");
+        String CATEGORY_ENGINES_LABEL = bundle.getString("project.category.engines");
+        String CATEGORY_BUILDS_LABEL = bundle.getString("project.category.builds");
+        String CATEGORY_DATASETS_LABEL = bundle.getString("project.category.datasets");
+        String CATEGORY_TRAINS_LABEL = bundle.getString("project.category.trains");
 
-        String ITEM_MODEL = bundle.getString("project.item.model");
-        String ITEM_ENGINE = bundle.getString("project.item.engine");
-        String ITEM_BUILD = bundle.getString("project.item.build");
-        String ITEM_DATASET = bundle.getString("project.item.dataset");
-        String ITEM_TRAIN = bundle.getString("project.item.train");
+        String ITEM_MODEL_LABEL = bundle.getString("project.item.model");
+        String ITEM_ENGINE_LABEL = bundle.getString("project.item.engine");
+        String ITEM_BUILD_LABEL = bundle.getString("project.item.build");
+        String ITEM_DATASET_LABEL = bundle.getString("project.item.dataset");
+        String ITEM_TRAIN_LABEL = bundle.getString("project.item.train");
 
         String PROJECT_TREE = bundle.getString("project.labels.projectTree");
     }

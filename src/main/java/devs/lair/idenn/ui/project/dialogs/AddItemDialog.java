@@ -38,14 +38,14 @@ public class AddItemDialog extends IdeDialog<ProjectItem> {
         centerPanel.setLayout(new GridBagLayout());
 
         GridBagHelper helper = new GridBagHelper();
-        helper.nextCell().gap(5).alignLeft();
+        helper.nextCell().gap(IdeSizes.SMALL_IDENT).alignLeft();
 
         centerPanel.add(new JLabel("Name"), helper.get());
 
         helper.nextCell().fillHorizontally();
         centerPanel.add(creteNameTextfield(), helper.get());
 
-        helper.nextRow().nextCell().gap(5).alignLeft();
+        helper.nextRow().nextCell().gap(IdeSizes.SMALL_IDENT).alignLeft();
         centerPanel.add(new JLabel("Type"), helper.get());
 
         helper.nextCell().fillHorizontally();
